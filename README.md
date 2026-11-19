@@ -178,9 +178,9 @@ Run `measure-deposits.js` on a fresh node: the deploy deposit includes the code 
 
 ### Testnet deployment (CI), `scripts/deploy-create3.js`
 
-The `Deploy` workflow (`.github/workflows/deploy.yml`) deploys the contract to `paseo-next-v2` (Paseo Asset Hub Next) or `preview` (Previewnet). It works the same way as `paritytech/attestation-protocol`:
-- It deploys through the shared Solady CREATE3 factory at `0x8533c79E058c5a6489CAFeCA86dc600E029D75f5`, the factory the dotNS contracts use.
-- The salt is `keccak256("account-data-store.create3.v1:AccountDataStore:1.0.0")`. The address depends only on the factory and this salt, so it is the same on both networks and after every chain wipe: **`0x9337eADe019B9A2840b05358b0E188C42D8b3CB3`**.
+The `Deploy` workflow (`.github/workflows/deploy.yml`) deploys the contract to `paseo-next-v2` (Paseo Asset Hub Next), `preview` (Previewnet) or `polkadot-test` (a Polkadot fork). It works the same way as `paritytech/attestation-protocol`:
+- It deploys through the shared Solady CREATE3 factory at `0x8533c79E058c5a6489CAFeCA86dc600E029D75f5`, the factory the dotNS contracts use. On `polkadot-test` it deploys through Polkadot's copy of that factory, at `0x79718EA8c9517447Fc96229dcbd3F2FD9Ee8D2c2`.
+- The salt is `keccak256("account-data-store.create3.v1:AccountDataStore:1.0.0")`. The address depends only on the factory and this salt, so it is the same on `paseo-next-v2` and `preview` and after every chain wipe: **`0x9337eADe019B9A2840b05358b0E188C42D8b3CB3`**. On `polkadot-test` it is **`0x696cf82c55709723ce28Ce934430aB966fd40226`**.
 - A rerun finds the contract already at that address and adopts it, so the workflow is safe to repeat.
 - To move to a fresh address, bump `CONTRACT_VERSION` in the script.
 - It deploys the **EVM (solc) build**, which runs on revive's REVM backend; the test suite passes there (`npm run test:revm`). The factory rejects PolkaVM init code with `DeploymentFailed()`.

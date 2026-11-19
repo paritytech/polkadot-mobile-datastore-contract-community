@@ -11,7 +11,7 @@ on:
         type: choice
         required: true
         default: preview
-        options: [paseo-next-v2, preview]
+        options: [paseo-next-v2, preview, polkadot-test]
 
 concurrency:
   group: deploy-${{ inputs.network }}

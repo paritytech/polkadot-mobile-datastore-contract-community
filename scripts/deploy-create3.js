@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: GPL-3.0-only
 // Copyright (C) 2026 Parity Technologies (UK) Ltd.
 
-// Puts AccountDataStore on a testnet through the shared CREATE3 factory, or confirms it is there.
-// The address is salt-derived, so it is the same on every network and survives chain wipes. Run by
+// Puts AccountDataStore on a testnet through the network's CREATE3 factory, or confirms it is there.
+// The address depends only on that factory and the salt, so a chain wipe doesn't change it. Run by
 // .github/workflows/deploy.yml, which paritytech/autodeployer dispatches after a wipe, or by hand.
 //
 //   npm run build                                       # EVM (solc) artifact; the factory rejects PolkaVM code
@@ -10,7 +10,7 @@
 //   NETWORK=paseo-next-v2 npm run deploy:create3
 //
 // Env:
-//   NETWORK            paseo-next-v2 | preview (required)
+//   NETWORK            paseo-next-v2 | preview | polkadot-test (required)
 //   DEPLOYER_MNEMONIC  sr25519 deployer passphrase (see scripts/lib/deployer-key.js); any funded
 //                      account works, the address does not depend on it
 //   SUBSTRATE_WS_URL   overrides the network's endpoint
